@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TextField } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TextField, Button, Box } from '@mui/material';
 
 // Dados iniciais
 const initialData = [
@@ -29,6 +29,7 @@ const EditableTable = () => {
     setData(updatedData);
   }, []);
 
+  // Função para lidar com mudanças nos campos
   const handleInputChange = (e, rowIndex, field) => {
     const { value } = e.target;
     const updatedData = [...data];
@@ -42,69 +43,93 @@ const EditableTable = () => {
     setData(updatedData);
   };
 
+  // Função para adicionar uma nova linha
+  const addNewRow = () => {
+    const newRow = {
+      staff: '', 
+      status: 'OK', 
+      agency: '', 
+      name: '', 
+      dataIn: '', 
+      dataOut: '', 
+      pax: 1, 
+      file: '', 
+      itinerary: '', 
+      daysRemaining: 0
+    };
+    setData([...data, newRow]);
+  };
+
   return (
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Staff</TableCell>
-            <TableCell>Status</TableCell>
-            <TableCell>Agência</TableCell>
-            <TableCell>Nome da Reserva</TableCell>
-            <TableCell>Data In</TableCell>
-            <TableCell>Data Out</TableCell>
-            <TableCell>Pax</TableCell>
-            <TableCell>File</TableCell>
-            <TableCell>Itinerário</TableCell>
-            <TableCell>Dias Restantes</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((row, index) => (
-            <TableRow key={index}>
-              <TableCell>
-                <TextField value={row.staff} onChange={(e) => handleInputChange(e, index, 'staff')} />
-              </TableCell>
-              <TableCell>
-                <TextField value={row.status} onChange={(e) => handleInputChange(e, index, 'status')} />
-              </TableCell>
-              <TableCell>
-                <TextField value={row.agency} onChange={(e) => handleInputChange(e, index, 'agency')} />
-              </TableCell>
-              <TableCell>
-                <TextField value={row.name} onChange={(e) => handleInputChange(e, index, 'name')} />
-              </TableCell>
-              <TableCell>
-                <TextField
-                  type="date"
-                  value={row.dataIn}
-                  onChange={(e) => handleInputChange(e, index, 'dataIn')}
-                />
-              </TableCell>
-              <TableCell>
-                <TextField
-                  type="date"
-                  value={row.dataOut}
-                  onChange={(e) => handleInputChange(e, index, 'dataOut')}
-                />
-              </TableCell>
-              <TableCell>
-                <TextField value={row.pax} onChange={(e) => handleInputChange(e, index, 'pax')} />
-              </TableCell>
-              <TableCell>
-                <TextField value={row.file} onChange={(e) => handleInputChange(e, index, 'file')} />
-              </TableCell>
-              <TableCell>
-                <TextField value={row.itinerary} onChange={(e) => handleInputChange(e, index, 'itinerary')} />
-              </TableCell>
-              <TableCell>
-                <TextField value={row.daysRemaining} disabled />
-              </TableCell>
+    <Box>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Staff</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell>Agência</TableCell>
+              <TableCell>Nome da Reserva</TableCell>
+              <TableCell>Data In</TableCell>
+              <TableCell>Data Out</TableCell>
+              <TableCell>Pax</TableCell>
+              <TableCell>File</TableCell>
+              <TableCell>Itinerário</TableCell>
+              <TableCell>Dias Restantes</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {data.map((row, index) => (
+              <TableRow key={index}>
+                <TableCell>
+                  <TextField value={row.staff} onChange={(e) => handleInputChange(e, index, 'staff')} />
+                </TableCell>
+                <TableCell>
+                  <TextField value={row.status} onChange={(e) => handleInputChange(e, index, 'status')} />
+                </TableCell>
+                <TableCell>
+                  <TextField value={row.agency} onChange={(e) => handleInputChange(e, index, 'agency')} />
+                </TableCell>
+                <TableCell>
+                  <TextField value={row.name} onChange={(e) => handleInputChange(e, index, 'name')} />
+                </TableCell>
+                <TableCell>
+                  <TextField
+                    type="date"
+                    value={row.dataIn}
+                    onChange={(e) => handleInputChange(e, index, 'dataIn')}
+                  />
+                </TableCell>
+                <TableCell>
+                  <TextField
+                    type="date"
+                    value={row.dataOut}
+                    onChange={(e) => handleInputChange(e, index, 'dataOut')}
+                  />
+                </TableCell>
+                <TableCell>
+                  <TextField value={row.pax} onChange={(e) => handleInputChange(e, index, 'pax')} />
+                </TableCell>
+                <TableCell>
+                  <TextField value={row.file} onChange={(e) => handleInputChange(e, index, 'file')} />
+                </TableCell>
+                <TableCell>
+                  <TextField value={row.itinerary} onChange={(e) => handleInputChange(e, index, 'itinerary')} />
+                </TableCell>
+                <TableCell>
+                  <TextField value={row.daysRemaining} disabled />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Box mt={2}>
+        <Button variant="contained" color="primary" onClick={addNewRow}>
+          Adicionar Linha
+        </Button>
+      </Box>
+    </Box>
   );
 };
 
